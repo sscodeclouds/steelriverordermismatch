@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c61ff82cbf0142a401a48a8161e1595a",
+    "content-hash": "feef61b4423bb0a9ae9e35cea7ba22e2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1661,6 +1661,65 @@
             "time": "2022-04-17T13:12:02+00:00"
         },
         {
+            "name": "minuteoflaravel/laravel-csv-validator",
+            "version": "1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/minuteoflaravel/laravel-csv-validator.git",
+                "reference": "90d13283d3c7efa36fb5933da1522be7df358f2d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/minuteoflaravel/laravel-csv-validator/zipball/90d13283d3c7efa36fb5933da1522be7df358f2d",
+                "reference": "90d13283d3c7efa36fb5933da1522be7df358f2d",
+                "shasum": ""
+            },
+            "require": {
+                "parsecsv/php-parsecsv": "^1.3",
+                "php": "^7.4|^8.0|^8.1"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "MinuteOfLaravel\\CsvValidator\\CsvValidatorServiceProvider"
+                    ],
+                    "aliases": {
+                        "CsvValidator": "MinuteOfLaravel\\CsvValidator\\CsvValidator"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "MinuteOfLaravel\\CsvValidator\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Minute Of Laravel",
+                    "email": "contact@minuteoflaravel.com",
+                    "homepage": "https://minuteoflaravel.com"
+                }
+            ],
+            "description": "Adds CSV validator to your Laravel project",
+            "homepage": "https://github.com/minuteoflaravel/laravel-csv-validator",
+            "keywords": [
+                "csv",
+                "csv-validator",
+                "laravel",
+                "minuteoflaravel"
+            ],
+            "support": {
+                "issues": "https://github.com/minuteoflaravel/laravel-csv-validator/issues",
+                "source": "https://github.com/minuteoflaravel/laravel-csv-validator/tree/1.0.4"
+            },
+            "time": "2022-05-20T13:52:19+00:00"
+        },
+        {
             "name": "monolog/monolog",
             "version": "2.8.0",
             "source": {
@@ -2131,6 +2190,70 @@
                 "source": "https://github.com/opis/closure/tree/3.6.3"
             },
             "time": "2022-01-27T09:35:39+00:00"
+        },
+        {
+            "name": "parsecsv/php-parsecsv",
+            "version": "1.3.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/parsecsv/parsecsv-for-php.git",
+                "reference": "2d6236cae09133e0533d34ed45ba1e1ecafffebb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/parsecsv/parsecsv-for-php/zipball/2d6236cae09133e0533d34ed45ba1e1ecafffebb",
+                "reference": "2d6236cae09133e0533d34ed45ba1e1ecafffebb",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^6",
+                "squizlabs/php_codesniffer": "^3.5"
+            },
+            "suggest": {
+                "illuminate/support": "Fluent array interface for map functions"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "ParseCsv\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jim Myhrberg",
+                    "email": "contact@jimeh.me"
+                },
+                {
+                    "name": "William Knauss",
+                    "email": "will.knauss@gmail.com"
+                },
+                {
+                    "name": "Susann Sgorzaly",
+                    "homepage": "https://github.com/susgo"
+                },
+                {
+                    "name": "Christian Bläul",
+                    "homepage": "https://github.com/Fonata"
+                }
+            ],
+            "description": "CSV data parser for PHP",
+            "support": {
+                "issues": "https://github.com/parsecsv/parsecsv-for-php/issues",
+                "source": "https://github.com/parsecsv/parsecsv-for-php"
+            },
+            "time": "2021-11-07T14:15:46+00:00"
         },
         {
             "name": "phpoption/phpoption",

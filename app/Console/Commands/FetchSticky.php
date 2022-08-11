@@ -78,28 +78,43 @@ class FetchSticky extends Command
         $stickyOrder = new StickyOrder($stickyDomain, $stickyUsername, $stickyPassword);
         $orderResponse = $stickyOrder->v1GetOrders($start_date, $end_date, $is_test_order == 'y' ? true : false);
         $invalid_order_ids = [];
+        $inserted_data = [];
         if($orderResponse['success'] == true) {
             if($orderResponse['data']['response_code'] == 100) {
-                $bar = $this->output->createProgressBar(count($orderResponse['data']['order_id']));
+                $chunks = array_chunk($orderResponse['data']['order_id'],100);
+                $bar = $this->output->createProgressBar(count($chunks));
                 $bar->start();
-                foreach ($orderResponse['data']['order_id'] as $order_id) {
-                    $order_details = $stickyOrder->v1GetOrderDetails($order_id);
-                    if($order_details['success'] == true) {
-                        if($order_details['data']['response_code'] == 100) {
-                            Sticky::updateOrCreate([
-                                'order_id'   => $order_id,
-                            ],[
-                                'is_test_order' => $is_test_order == 'y' ? 'yes' : 'no',
-                                'revenue'       => $order_details['data']['order_total'],
-                                'order_status'       => $this->orderStatus[$order_details['data']['order_status']],
-                                'created_at'    => $order_details['data']['time_stamp']
-                            ]);
-                        }else {
-                            array_push($invalid_order_ids, ['order_id' => $order_id]);
+                foreach ($chunks as $key => $chunk) {
+                    $order_details = $stickyOrder->v1GetOrderDetails($chunk);
+                    if($order_details['data']['response_code'] == 100) {
+                        foreach($order_details['data']['data'] as $order_id => $order_detail) {
+                            if($order_detail['response_code'] == 100) {
+                                array_push($inserted_data, [
+                                    'order_id'   => $order_id,
+                                    'is_test_order' => $is_test_order == 'y' ? 'yes' : 'no',
+                                    'revenue'       => $order_detail['order_total'],
+                                    'order_status'       => $this->orderStatus[$order_detail['order_status']],
+                                    'created_at'    => $order_detail['time_stamp']
+                                ]);
+                            }else {
+                                array_push($invalid_order_ids, ['order_id' => $order_id]);
+                            }
                         }
+                        $bar->advance();
+                    }else {
+                        $bar->finish();
+                        $this->newLine(2);
+                        $this->info('Something went wrong!');
                     }
-                    $bar->advance();
+                    
                 }
+                $collection = collect($inserted_data);   //turn data into collection
+                $chunks = $collection->chunk(100); //chunk into smaller pieces
+                foreach ($chunks as $chunk)
+                {
+                    Sticky::insertOrIgnore($chunk->toArray());
+                }
+                
                 $bar->finish();
                 $this->newLine(2);
                 $this->info('The process was successful!');

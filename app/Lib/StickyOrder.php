@@ -25,7 +25,7 @@ class StickyOrder
     //date format : mm/dd/yyyy
     public function v1GetOrders(
         $startDate = '01/01/2022', $endDate = '01/02/2022',
-        $isTest = false, $isSuccess = false
+        $isTest = false, $isApproved = false
     ): array{
         $response = [
             'success' => false,
@@ -42,7 +42,7 @@ class StickyOrder
             "date_type" => "create",
             "product_id" => "all",
             "criteria" => [
-                "success" => $isSuccess?"1":"0",
+                "approved" => $isApproved?"1":"0",
                 "is_test" => $isTest?"1":"0"
             ],
             "member_token" => "",

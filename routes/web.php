@@ -14,3 +14,5 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index']);
+Route::post('/upload_ga', [App\Http\Controllers\HomeController::class, 'uploadGA'])->name('upload_ga');
+Route::get('/exportReport', [App\Http\Controllers\HomeController::class, 'exportGACompReport']);
